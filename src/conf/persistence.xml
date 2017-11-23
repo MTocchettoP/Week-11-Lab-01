@@ -6,6 +6,7 @@
     <class>domainmodel.Note</class>
     <class>domainmodel.Role</class>
     <class>domainmodel.User</class>
+    <class>domainmodel.PasswordChangeRequest</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

@@ -33,7 +33,14 @@ CREATE TABLE `Note` (
   CONSTRAINT `FK_Note_User` FOREIGN KEY (`Owner`) REFERENCES `User` (`Username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
-
+CREATE TABLE `password_change_request`(
+    `ID`        varchar(64) NOT NULL,
+    `Time`      datetime NOT NULL,
+    `UserID`    varchar(10) NOT NULL,
+    PRIMARY KEY (ID), 
+    KEY `FK_User` (`UserID`),
+    CONSTRAINT `FK_User` FOREIGN KEY (`UserID`) REFERENCES `User` (`Username`) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 INSERT INTO `Role` VALUES (1,'admin');
 INSERT INTO `Role` VALUES (2,'regular user');
@@ -44,6 +51,7 @@ INSERT INTO `User` VALUES ('admin3', 'password', 'cprg352+admin3@gmail.com', 1, 
 INSERT INTO `User` VALUES ('anne', 'password', 'cprg352+anne@gmail.com', 1, 'Anne', 'Annie', 2);
 INSERT INTO `User` VALUES ('barb', 'password', 'cprg352+barb@gmail.com', 0, 'Barb', 'Barker', 2);
 INSERT INTO `User` VALUES ('carl', 'password', 'cprg352+carl@gmail.com', 1, 'Carl', 'Carlson', 2);
+INSERT INTO `User` VALUES ('sd', 'password', 'sdtestsait@gmail.com', 1, 'SDy', 'McSDyface', 2);
 
 INSERT INTO `Note` (`DateCreated`, `Title`, `Contents`, `Owner`) VALUES (NOW(), 'Sample note 1', 'This is a sample note.\n\nMore text in the sample note.', 'anne');
 INSERT INTO `Note` (`DateCreated`, `Title`, `Contents`, `Owner`) VALUES (NOW(), 'Sample note 2', 'This is a sample note.\n\nMore text in the sample note.', 'anne');

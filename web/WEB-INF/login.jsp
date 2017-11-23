@@ -4,7 +4,7 @@
     Author     : awarsyle
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jspf/header.jspf" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,12 +12,14 @@
         <title>Login</title>
     </head>
     <body>
-        <h1>NotesKeepr Login</h1>
+        <h1>NotesKeeper Login</h1>
         <form action="login" method="post">
-            username: <input type="text" name="username"><br>
-            password: <input type="password" name="password"><br>
+            username: <input type="text" name="username" value="${username}"><br>
+            password: <input type="password" name="password" value="${password}"><br>
             <input type="submit" value="Login">
         </form>
         ${errormessage}
+        
+         <a href="<c:url value='forgot'></c:url>">Forgot Password</a><br />
     </body>
 </html>
