@@ -43,6 +43,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                 if(user != null){
                     request.setAttribute("username", user.getUsername());
                     request.setAttribute("password", user.getPassword());
+                    request.setAttribute("ret", 1);
                     getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
                 }else{
                     request.setAttribute("errormessager", "The link provided was altered. Bad you");

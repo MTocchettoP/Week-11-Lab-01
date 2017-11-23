@@ -13,8 +13,8 @@
     </head>
     <body>
          <form action="login" method="post">
-            username: ${username}
-            password: ${password}
+            username: ${username}<br/>
+            password: ${password}<br/>
             <input type="submit" value="Login">
         </form>
         ${errormessage}

@@ -15,7 +15,7 @@
         <h1>NotesKeeper Login</h1>
         <form action="login" method="post">
             username: <input type="text" name="username" value="${username}"><br>
-            password: <input type="password" name="password" value="${password}"><br>
+            password: <input type="${ret == 1 ? 'text': 'password'}" name="password" value="${password}"><br>
             <input type="submit" value="Login">
         </form>
         ${errormessage}
