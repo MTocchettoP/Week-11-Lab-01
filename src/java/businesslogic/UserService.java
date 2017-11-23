@@ -39,14 +39,14 @@ public class UserService {
         return userDB.delete(deletedUser);
     }
 
-    public boolean sendRetrivalMail(String email) throws NotesDBException {
+    public boolean sendRetrivalMail(String email,String path) throws NotesDBException {
         boolean userExist = false;
         User toRetrive = getUserByEmail(email);
         if(toRetrive == null)
             return false;
 
         PasswordChangeService ps = new PasswordChangeService();
-        ps.startPasswordRetrieval(email, toRetrive);
+        ps.startPasswordRetrieval(email, toRetrive,path);
   
 
         return true;

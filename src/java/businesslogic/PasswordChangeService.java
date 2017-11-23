@@ -16,7 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import domainmodel.PasswordChangeRequest;
 import domainmodel.User;
+import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
 import javax.mail.MessagingException;
 import javax.naming.NamingException;
 
@@ -33,7 +35,7 @@ public class PasswordChangeService {
         retDB = new RetrieveDB();
     }
 
-    public void startPasswordRetrieval(String email, User toRetrive) throws NotesDBException {
+    public void startPasswordRetrieval(String email, User toRetrive, String path) throws NotesDBException {
 
         String uuid = UUID.randomUUID().toString();
         String hashed = hashUUID(uuid);
@@ -41,7 +43,7 @@ public class PasswordChangeService {
         Date now = new Date();
         PasswordChangeRequest psr = new PasswordChangeRequest(hashed, now, toRetrive);
         retDB.insert(psr);
-        sendRetrievalEmail(toRetrive, uuid);
+        sendRetrievalEmail(toRetrive, uuid,path);
     }
 
     public User completePasswordRetrieval(String uuid) throws NotesDBException {
@@ -55,13 +57,19 @@ public class PasswordChangeService {
         return pcr.getUserID();
     }
 
-    private void sendRetrievalEmail(User user, String uuid) {
+    private void sendRetrievalEmail(User user, String uuid, String path) {
         WebMailService wms = new WebMailService();
+        HashMap<String,String> content = new HashMap<String,String>();
+        content.put("link", "http://localhost:8084/forgot?ret=" + uuid);
+        path = path+ "/emailtemplates/retrieveLink.html";
+        
         try {
-            wms.sendMail(user.getEmail(), "Password Retrieval", "http://localhost:8084/forgot?ret=" + uuid, false);
+            wms.sendMail(user.getEmail(), "Password Retrieval",path,content);
         } catch (MessagingException ex) {
             Logger.getLogger(PasswordChangeService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
+            Logger.getLogger(PasswordChangeService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(PasswordChangeService.class.getName()).log(Level.SEVERE, null, ex);
         }
 

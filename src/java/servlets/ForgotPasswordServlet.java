@@ -71,7 +71,8 @@ public class ForgotPasswordServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         UserService us = new UserService();
         try {
-            us.sendRetrivalMail(email);
+            String path = getServletContext().getRealPath("/WEB-INF");
+            us.sendRetrivalMail(email,path);
             session.setAttribute("msg", "An e-mail was sent to " + email + " . Please follow the link there to reset your password");
             response.sendRedirect("/forgot");
         } catch (Exception ex) {
